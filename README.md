@@ -17,6 +17,7 @@
 
   <h3>📚 Project</h3>
   <p>
+    <a href="https://e.a.us.ci/"><b>⚡ Live Service</b></a> ·
     <a href="https://github.com/meyifan20-icloud/sublink-worker"><b>Repository</b></a> ·
     <a href="https://github.com/meyifan20-icloud/sublink-worker#-quick-start"><b>Quick Start</b></a> ·
     <a href="https://github.com/meyifan20-icloud/sublink-worker/releases"><b>Releases</b></a>
@@ -24,6 +25,9 @@
 </div>
 
 ## 🚀 Quick Start
+
+### Production Service
+- **Live service**: https://e.a.us.ci/
 
 ### One-Click Deployment
 - Cloudflare Workers and Vercel buttons above use this repository as the deployment source.
