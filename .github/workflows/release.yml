@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Sublink Worker ${{ steps.version.outputs.VERSION }}
+          body: |
+            ## Release ${{ steps.version.outputs.VERSION }}
+
+            ### 📚 Project
+            - [Repository](https://github.com/meyifan20-icloud/sublink-worker)
+            - [Quick Start](https://github.com/meyifan20-icloud/sublink-worker#-quick-start)
+            - [Releases](https://github.com/meyifan20-icloud/sublink-worker/releases)
+
+            ### 🚀 Quick Start
+            ```bash
+            # Cloudflare Workers
+            npm install && npm run deploy
+
+            # Docker
+            docker compose up -d
+
+            # Node.js
+            npm run build:node && npm run dev:node
+            ```
+
+            ---
+            **Note:** This release was automatically created by GitHub Actions.
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Notify success
+        if: success()
+        run: |
+          echo "✅ Release ${{ steps.version.outputs.VERSION }} created successfully!"
+          echo "View at: ${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ steps.version.outputs.VERSION }}"
