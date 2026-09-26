@@ -1,0 +1,31 @@
+name: Audit Sublink Localization
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/audit-localization.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan upstream references
+        run: |
+          set -euo pipefail
+          {
+            echo "# Sublink upstream reference audit"
+            echo
+            grep -RInE --exclude-dir=.git --exclude='UPSTREAM_AUDIT.txt'               '7Sageer|7sageer|sublink\.works|app\.sublink\.works|ghcr\.io/7sageer|github\.com/7Sageer|api\.github\.com/repos/7Sageer|trendshift\.io/repositories/12291' . || true
+          } > UPSTREAM_AUDIT.txt
+      - name: Commit audit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add UPSTREAM_AUDIT.txt
+          git commit -m "chore: record upstream reference audit" || exit 0
+          git push origin main
