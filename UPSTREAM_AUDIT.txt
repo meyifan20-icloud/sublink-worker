@@ -1,0 +1,29 @@
+# Sublink upstream reference audit
+
+./docker-compose.yml:3:    image: ${SUBLINK_WORKER_IMAGE:-ghcr.io/7sageer/sublink-worker:latest}
+./.github/workflows/audit-localization.yml:23:            grep -RInE --exclude-dir=.git --exclude='UPSTREAM_AUDIT.txt'               '7Sageer|7sageer|sublink\.works|app\.sublink\.works|ghcr\.io/7sageer|github\.com/7Sageer|api\.github\.com/repos/7Sageer|trendshift\.io/repositories/12291' . || true
+./.github/workflows/import-upstream.yml:26:          git clone --depth=1 https://github.com/7Sageer/sublink-worker.git /tmp/sublink-upstream
+./LICENSE:3:Copyright (c) 2024 7Sageer
+./scripts/release.sh:70:See changelog: https://sublink.works/updates/"
+./test/issue-337-ss-cipher-decode.test.js:8: * https://github.com/7Sageer/sublink-worker/issues/337
+./test/ss-plugin.test.js:8: * https://github.com/7Sageer/sublink-worker/issues/290
+./test/surge-unsupported-proxy.test.js:6: * https://github.com/7Sageer/sublink-worker/issues/299
+./src/constants.js:4:export const GITHUB_REPO = 'https://github.com/7Sageer/sublink-worker';
+./src/constants.js:5:export const GITHUB_API_RELEASES = 'https://api.github.com/repos/7Sageer/sublink-worker/releases/latest';
+./src/constants.js:6:export const DOCS_URL = 'https://sublink.works';
+./README.md:9:  <a href="https://trendshift.io/repositories/12291" target="_blank">
+./README.md:10:    <img src="https://trendshift.io/api/badge/repositories/12291" alt="7Sageer%2Fsublink-worker | Trendshift" width="250" height="55"/>
+./README.md:16:  <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/7Sageer/sublink-worker">
+./README.md:19:  <a href="https://vercel.com/new/clone?repository-url=https://github.com/7Sageer/sublink-worker&env=KV_REST_API_URL,KV_REST_API_TOKEN&envDescription=Vercel%20KV%20credentials%20for%20data%20storage&envLink=https://vercel.com/docs/storage/vercel-kv">
+./README.md:26:    <a href="https://app.sublink.works"><b>⚡ Live Demo</b></a> ·
+./README.md:27:    <a href="https://sublink.works/en/"><b>Documentation</b></a> 
+./README.md:28:    <a href="https://sublink.works"><b>中文文档</b></a>·
+./README.md:31:    <a href="https://sublink.works/guide/quick-start/">Quick Start</a> ·
+./README.md:32:    <a href="https://sublink.works/api/">API Reference</a> ·
+./README.md:33:    <a href="https://sublink.works/guide/faq/">FAQ</a>
+./README.md:41:- That's it! See the [Document](https://sublink.works/guide/quick-start/) for more information.
+./README.md:46:- **Docker**: `docker pull ghcr.io/7sageer/sublink-worker:latest`
+./README.md:86:<a href="https://star-history.com/#7Sageer/sublink-worker&Date">
+./README.md:88:   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=7Sageer/sublink-worker&type=Date&theme=dark" />
+./README.md:89:   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=7Sageer/sublink-worker&type=Date" />
+./README.md:90:   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=7Sageer/sublink-worker&type=Date" />
