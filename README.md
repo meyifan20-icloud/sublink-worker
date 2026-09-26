@@ -32,7 +32,7 @@
 ### One-Click Deployment
 - Cloudflare Workers and Vercel buttons above use this repository as the deployment source.
 - Cloudflare Workers requires a `SUBLINK_KV` namespace. The repository deployment script creates/reuses it automatically.
-- Production deployment for this maintained copy is handled through the owner's central Cloudflare automation; no long-lived Cloudflare token is stored in this repository.
+- Repository deployment is self-contained: each user can configure their own `CLOUDFLARE_API_TOKEN` and `CF_ACCOUNT_ID` GitHub Secrets and deploy to their own Cloudflare account. The maintainer may also use a separate private central automation flow for personal deployments.
 
 ### Alternative Runtimes
 - **Node.js**: `npm run build:node && node dist/node-server.cjs`
