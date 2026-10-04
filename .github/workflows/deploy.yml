@@ -8,7 +8,35 @@ on:
       - main
 
 jobs:
+  credentials:
+    runs-on: ubuntu-latest
+    outputs:
+      configured: ${{ steps.check.outputs.configured }}
+    steps:
+      - name: Check native deployment credentials
+        id: check
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          missing=()
+          [[ -n "$CLOUDFLARE_API_TOKEN" ]] || missing+=(CLOUDFLARE_API_TOKEN)
+          [[ -n "$CF_ACCOUNT_ID" ]] || missing+=(CF_ACCOUNT_ID)
+          if (( ${#missing[@]} == 0 )); then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "Native deployment skipped: missing ${missing[*]}. No Worker was deployed by this run." >> "$GITHUB_STEP_SUMMARY"
+            if [[ "$EVENT_NAME" != "push" ]]; then
+              echo "::error::Configure repository secrets before deployment: ${missing[*]}"
+              exit 1
+            fi
+            echo "::notice::Native deployment credentials are not configured; skipping automatic deployment."
+          fi
   deploy:
+    needs: credentials
+    if: needs.credentials.outputs.configured == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
